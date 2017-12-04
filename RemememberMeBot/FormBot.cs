@@ -50,7 +50,7 @@ namespace RemememberMeBot
                                 case "/hello":
                                     answer = "ну, привет!";
                                     break;
-                                case "/by":
+                                case "/bye":
                                     answer = "ну, пока!";
                                     break;
                             }
