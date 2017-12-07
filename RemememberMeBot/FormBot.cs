@@ -68,18 +68,18 @@ namespace RemememberMeBot
                         Telegram.Bot.Types.Message message = update.Message;
                         if (message.Type == MessageType.TextMessage)
                         {
-                            string answer = "команда неизвестна";
+                            string answer = "Unknow command.";
                             if (checkAnswer == false)
                             {
                                 switch (message.Text)
                                 {
                                     case "/hello":
-                                        answer = "Hey there! Let's start with the next word.";
+                                        answer = "Hey there! Let's start with the next word. Write /newword in the input line to start quiz.";
                                         await botClient.SendTextMessageAsync(message.Chat.Id, answer);
                                         break;
 
                                     case "/bye":
-                                        answer = "See you later";
+                                        answer = "See you later!";
                                         await botClient.SendTextMessageAsync(message.Chat.Id, answer);
                                         break;
 
@@ -128,12 +128,12 @@ namespace RemememberMeBot
                             {
                                 if (message.Text == rightEnglishWord)
                                 {
-                                    answer = "all correct";
+                                    answer = "Brilliant!";
                                     await botClient.SendTextMessageAsync(message.Chat.Id, answer);
                                 }
                                 else
                                 {
-                                    answer = "wrong answer";
+                                    answer = "Sorry. Wrong answer.";
                                     await botClient.SendTextMessageAsync(message.Chat.Id, answer);
                                 }
                                 checkAnswer = false;
