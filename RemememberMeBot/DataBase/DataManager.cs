@@ -7,7 +7,7 @@ using System.Data.SQLite;
 using System.Data.Common;
 using System.IO;
 
-namespace SqliteSample
+namespace RemememberMeBot
 {
     public class DataManager
     {
@@ -68,6 +68,20 @@ namespace SqliteSample
             }
         }
 
+        public bool DeleteFromTableWaTByID(string id)
+        {
+            try
+            {
+                command.CommandText = String.Format("DELETE FROM {0} WHERE id={1}", wordAndTranslationTable, id);
+                command.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
         public List<WordAndTranslation> SelectAllFromTableWaT()
         {
             try
@@ -88,7 +102,7 @@ namespace SqliteSample
                         englishWord
                     ));
                 }
-
+                reader.Close();
                 return selected;
             }
             catch (Exception e)
