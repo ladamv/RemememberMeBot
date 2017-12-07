@@ -73,7 +73,7 @@ namespace RemememberMeBot
                             {
                                 switch (message.Text)
                                 {
-                                    case "/hello":
+                                    case "/start":
                                         answer = "Hey there! Let's start with the next word. Write /newword in the input line to start quiz.";
                                         await botClient.SendTextMessageAsync(message.Chat.Id, answer);
                                         break;
