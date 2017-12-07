@@ -48,10 +48,10 @@ namespace RemememberMeBot
                             switch (message.Text)
                             {
                                 case "/hello":
-                                    answer = "ну, привет!";
+                                    answer = "Hey there! Let's start with the next word.";
                                     break;
                                 case "/bye":
-                                    answer = "ну, пока!";
+                                    answer = "See you later";
                                     break;
                             }
                             await botClient.SendTextMessageAsync(message.Chat.Id, answer);
