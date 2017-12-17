@@ -35,7 +35,7 @@ namespace RemememberMeBot
 
         private void buttonStartBot_Click(object sender, EventArgs e)
         {
-            if (botWork==false)
+            if (botWork == false)
             {
                 backgroundWorkerBot.RunWorkerAsync();
                 MessageBox.Show("Бот запущен");
@@ -52,7 +52,7 @@ namespace RemememberMeBot
             BackgroundWorker worker = sender as BackgroundWorker;
             try
             {
-                TelegramBotClient botClient = new  TelegramBotClient(token);
+                TelegramBotClient botClient = new TelegramBotClient(token);
                 await botClient.SetWebhookAsync("");
                 int offset = 0;
                 while (true)
@@ -80,7 +80,7 @@ namespace RemememberMeBot
 
                                     case "/bye":
                                         answer = "See you later!";
-                                        await botClient.SendTextMessageAsync(message.Chat.Id, answer);
+                                        await botClient.SendTextMessageAsync(message.Chat.Id, answer, replyMarkup: null);
                                         break;
 
                                     case "/newword":
@@ -118,10 +118,10 @@ namespace RemememberMeBot
                                             watList[firstIndex].RussianWord, replyMarkup: keyboard);
                                         break;
 
-                                        default:
-                                            await botClient.SendTextMessageAsync(message.Chat.Id, answer);
+                                    default:
+                                        await botClient.SendTextMessageAsync(message.Chat.Id, answer);
                                         break;
-                                            
+
                                 }
                             }
                             else
@@ -129,12 +129,30 @@ namespace RemememberMeBot
                                 if (message.Text == rightEnglishWord)
                                 {
                                     answer = "Brilliant!";
-                                    await botClient.SendTextMessageAsync(message.Chat.Id, answer);
+                                    var keyboard = new Telegram.Bot.Types.ReplyMarkups.ReplyKeyboardMarkup(
+                                        keyboardRow:
+                                        new KeyboardButton[]
+                                        {
+                                                new KeyboardButton("/newword"),
+                                                new KeyboardButton("/bye")
+                                        },
+                                        resizeKeyboard: true
+                                    );
+                                    await botClient.SendTextMessageAsync(message.Chat.Id, answer, replyMarkup: keyboard);
                                 }
                                 else
                                 {
                                     answer = "Sorry. Wrong answer.";
-                                    await botClient.SendTextMessageAsync(message.Chat.Id, answer);
+                                    var keyboard = new Telegram.Bot.Types.ReplyMarkups.ReplyKeyboardMarkup(
+                                        keyboardRow:
+                                        new KeyboardButton[]
+                                        {
+                                                 new KeyboardButton("/newword"),
+                                                 new KeyboardButton("/bye")
+                                        },
+                                        resizeKeyboard: true
+                                    );
+                                    await botClient.SendTextMessageAsync(message.Chat.Id, answer, replyMarkup: keyboard);
                                 }
                                 checkAnswer = false;
                             }
@@ -180,7 +198,7 @@ namespace RemememberMeBot
             rnd = new Random();
             firstIndex = -1;
             secondIndex = -1;
-            rightEnglishWord=String.Empty;
+            rightEnglishWord = String.Empty;
             checkAnswer = false;
 
         }
